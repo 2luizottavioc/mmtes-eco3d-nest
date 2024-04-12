@@ -21,5 +21,5 @@ O Eco 3D é um sistema de gerenciamento de estoque voltado para materiais produz
 
 ## Tecnologias
 Nosso projeto utiliza *NestJS* para o backend e *Next.js* para o frontend. Para acessar os repositórios, clique nos links abaixo:
-- [Repositório do Backend (NestJS)](https://https://github.com/2luizottavioc/mmtes-eco3d-nest)
+- [Repositório do Backend (NestJS)](https://github.com/2luizottavioc/mmtes-eco3d-nest)
 - [Repositório do Frontend (Next.js)](https://github.com/2luizottavioc/mmtes-eco3d-next)
