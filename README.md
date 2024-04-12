@@ -3,11 +3,11 @@
 Projeto A3 de Modelos, métodos e técnicas da engenharia de software. Nosso trabalho, intitulado Eco 3D, visa desenvolver um sistema de gerenciamento de estoque para materiais de impressão 3D recicláveis. 
 
 ## Integrantes
-- Guilherme Guimarães Nascimento - 62122082;
-- Luiz Otávio Diniz Carvalho – 62116468;
-- Renan Natalino de Sousa – 62122847;
-- Samuel Tranquero Marques - 622121847;
-- Yago Henrique – 62122069;
+- [Guilherme Guimarães Nascimento](https://github.com/guilhermeguimaraesn) - 62122082;
+- [Luiz Otávio Diniz Carvalho](https://github.com/luizottavioc) – 62116468;
+- [Renan Natalino de Sousa](https://github.com/Renansousa27) – 62122847;
+- [Samuel Tranquero Marques](https://github.com/) - 622121847;
+- [Yago Henrique](https://github.com/yagohpt11221) – 62122069;
 
 ## Divisão SCRUM
 - *Scrum Master:* Renan Natalino de Sousa;
@@ -21,5 +21,5 @@ O Eco 3D é um sistema de gerenciamento de estoque voltado para materiais produz
 
 ## Tecnologias
 Nosso projeto utiliza *NestJS* para o backend e *Next.js* para o frontend. Para acessar os repositórios, clique nos links abaixo:
-- [Repositório do Backend (NestJS)](https://github.com/2luizottavioc/mmtes-eco3d-nest)
+- [Repositório do Backend (NestJS)](https://https://github.com/2luizottavioc/mmtes-eco3d-nest)
 - [Repositório do Frontend (Next.js)](https://github.com/2luizottavioc/mmtes-eco3d-next)
