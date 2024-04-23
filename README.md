@@ -19,6 +19,9 @@ Renan será responsável por garantir a correta aplicação do framework Scrum, 
 ## Tema
 O Eco 3D é um sistema de gerenciamento de estoque voltado para materiais produzidos por impressão 3D a partir de materiais recicláveis. Este projeto visa facilitar o controle e organização dos materiais utilizados na impressão 3D, permitindo aos usuários gerenciar o estoque de forma eficiente. Com o Eco 3D, os usuários poderão cadastrar novos materiais, atualizar informações, visualizar o status do estoque e registrar movimentações, como entradas e saídas de materiais. Além disso, o sistema oferecerá funcionalidades de relatórios para análise de consumo, facilitando o planejamento e a tomada de decisões estratégicas relacionadas ao estoque de materiais recicláveis utilizados na impressão 3D.
 
+## Documentação
+Todas as documentações criadas e utilizadas para esse projeto poderão ser encontradas na pasta [/docs](./docs/) que está presente na raíz desse projeto.
+
 ## Tecnologias
 Nosso projeto utiliza *NestJS* para o backend e *Next.js* para o frontend. Para acessar os repositórios, clique nos links abaixo:
 - [Repositório do Backend (NestJS)](https://github.com/2luizottavioc/mmtes-eco3d-nest)
