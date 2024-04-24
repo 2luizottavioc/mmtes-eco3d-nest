@@ -16,7 +16,8 @@ O Eco 3D é um sistema de gerenciamento de estoque voltado para materiais produz
 ## Divisão SCRUM da Equipe
 - *Scrum Master:* Renan Natalino de Sousa;
 - *Product Owner:* Luiz Otávio Diniz Carvalho;
-- *Desenvolvedores:* Marcelly Ferreira Dias Pinto, Guilherme Guimarães Nascimento, Samuel Tranquero Marques e Yago Henrique.  
+- *Desenvolvedores:* Guilherme Guimarães Nascimento, Samuel Tranquero Marques e Yago Henrique.  
+- *UI/UX:* Marcelly Ferreira Dias Pinto
 
 Renan será responsável por garantir a correta aplicação do framework Scrum, facilitando as reuniões, removendo obstáculos e promovendo um ambiente de trabalho colaborativo e produtivo para a equipe. Luiz Otávio será o Product Owner e estará encarregado de representar os interesses dos stakeholders, definindo as prioridades do produto, gerenciando o backlog do projeto e garantindo que o produto atenda às necessidades e expectativas dos usuários finais, já os desenvolvedores Guilherme, Samuel e Yago Henrique serão responsáveis pela implementação das funcionalidades do sistema, seguindo as diretrizes e prioridades definidas pelo Product Owner, e colaborando de forma eficiente para entregar um produto de alta qualidade.
 
