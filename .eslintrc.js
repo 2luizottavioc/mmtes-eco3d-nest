@@ -22,6 +22,8 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     'no-console': ["error", { 'allow': ["warn", "error"] }],
+    "indent": [4, "tab"],
+    "no-tabs": 0,
     'prettier/prettier': [
       'error',
       {
