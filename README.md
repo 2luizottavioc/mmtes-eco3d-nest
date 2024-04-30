@@ -28,3 +28,34 @@ Todas as documentações criadas e utilizadas para esse projeto poderão ser enc
 Nosso projeto utiliza *NestJS* para o backend e *Next.js* para o frontend. Para acessar os repositórios, clique nos links abaixo:
 - [Repositório do Backend (NestJS)](https://github.com/2luizottavioc/mmtes-eco3d-nest)
 - [Repositório do Frontend (Next.js)](https://github.com/2luizottavioc/mmtes-eco3d-next)
+
+## Development Environment
+Para criar o ambiente de desenvolvimento deste projeto, é necessário seguir os seguintes passos:
+- Certifique-se de ter todas as seguintes tecnologias instaladas:
+    - [Git](https://git-scm.com/downloads);
+    - [Visual Studio Code](https://code.visualstudio.com/download);
+    - [Node 20+ e npm](https://nodejs.org/en/download);
+    - [Docker](https://docs.docker.com/get-docker/);
+    - [Postman (opcional)](https://www.postman.com/downloads/);
+    - [DBeaver (opcional)](https://dbeaver.io/download/).
+- Clonagem do repositório: 
+    - Execute o código ```git clone git@github.com:2luizottavioc/mmtes-eco3d-nest.git``` em sua pasta de preferência;
+    - Uma pasta "mmtes-eco3d-nest" será criada, portanto, mova-se até ela com ```cd mmtes-eco3d-nest```;
+    - Certifique-se de executar todos os próximos passos dessa sessão dentro da raíz do projeto.
+- Dependências e .env
+    - Na raíz do projeto, instale as dependências via npm com ```npm install``` ou ```npm i```;
+    - Com as dependências instaladas, crie o arquivo de configuração (.env) duplicando o arquivo [.env.example](./.env.example) e o renomeando para ".env" com ```cp .env.example .env``` ou ```copy .\.env.example .\.env```.
+- Banco de dados
+    - Para iniciar o banco de dados, suba a imagem mysql presente no [docker-compose.yml](./docker-compose.yml) do projeto com ```docker compose up -d```;
+    - Verifique se deu tudo certo com a criação da imagem via ```docker ps``` observando seu status;
+    - Com a imagem em "status up", crie o schema do banco (migration) a partir do prisma com ```npx prisma migrate dev --name init```;
+    - Para verificar se o schema do banco foi iniciado corretamente, crie uma nova conexão pelo DBevear (ou pelo cliente de sua preferência) referenciando ao banco da imagem do docker com as seguintes credenciais:
+        - driver: mysql
+        - host: localhost
+        - port: 3388
+        - user: eco3d
+        - password: eco3d
+- Conexões e endpoints
+    - Com o banco conectado e todas as dependências instaladas, verifique se as rotas estão surtindo efeito. Para isso, inicie o modo de desenvolvimento do nest com ```npm run start:dev``` para que seja alocado um servidor com hot-reload para o nosso projeto;
+    - Com o modo desenvolvimento ligado, crie uma request para ```localhost:3000/hello-world``` (ou encontre-a pelo [Postman do projeto](https://www.postman.com/galactic-escape-194171/workspace/global/request/34484930-631be1ce-6ed6-450f-aef7-9483c209135b?action=share&creator=34484930&ctx=documentation)) e verifique se a string "Hello World!" apareceu em sua resposta;
+    - Caso todos os passos tenham sido concluídos com sucesso, o projeto já está idealmente preparado para o desenvolvimento.

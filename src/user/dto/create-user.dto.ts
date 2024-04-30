@@ -12,6 +12,19 @@ export class CreateUserDto extends User {
     email: string;
 
     @IsString()
+    @MinLength(11)
+    @MaxLength(14)
+    cpf_cnpj: string;
+
+    @IsString()
+    @MinLength(11)
+    @MaxLength(12)
+    @Matches(/^[0-9]*$/, {
+        message: 'contact must be just numbers',
+    })
+    contact: string;
+
+    @IsString()
     @MinLength(4)
     @MaxLength(20)
     @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
@@ -20,5 +33,7 @@ export class CreateUserDto extends User {
     password: string;
 
     @IsString()
+    @MinLength(4)
+    @MaxLength(20)
     name: string;
 }
