@@ -7,7 +7,7 @@ Projeto A3 da UNA - SI/ADS. Nosso trabalho, intitulado Eco 3D, visa desenvolver 
 - [Luiz Otávio Diniz Carvalho](https://github.com/luizottavioc) – 62116468;
 - [Marcelly Ferreira Dias Pinto](https://github.com/marcellydias) – 622220718;
 - [Renan Natalino de Sousa](https://github.com/Renansousa27) – 62122847;
-- [Samuel Tranquero Marques](https://github.com/) - 622121847;
+- [Samuel Tranquero Marques](https://github.com/ ) - 622121847;
 - [Yago Henrique](https://github.com/yagohpt11221) – 62122069;
 
 ## Tema
