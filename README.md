@@ -7,7 +7,7 @@ Projeto A3 da UNA - SI/ADS. Nosso trabalho, intitulado Eco 3D, visa desenvolver 
 - [Luiz Otávio Diniz Carvalho](https://github.com/luizottavioc) – 62116468;
 - [Marcelly Ferreira Dias Pinto](https://github.com/marcellydias) – 622220718;
 - [Renan Natalino de Sousa](https://github.com/Renansousa27) – 62122847;
-- [Samuel Tranquero Marques](https://github.com/) - 622121847;
+- [Samuel Tranquero Marques](https://github.com/ ) - 622121847;
 - [Yago Henrique](https://github.com/yagohpt11221) – 62122069;
 
 ## Tema
@@ -22,14 +22,14 @@ O Eco 3D é um sistema de gerenciamento de estoque voltado para materiais produz
 Renan será responsável por garantir a correta aplicação do framework Scrum, facilitando as reuniões, removendo obstáculos e promovendo um ambiente de trabalho colaborativo e produtivo para a equipe. Luiz Otávio será o Product Owner e estará encarregado de representar os interesses dos stakeholders, definindo as prioridades do produto, gerenciando o backlog do projeto e garantindo que o produto atenda às necessidades e expectativas dos usuários finais, Marcelly Dias será encarregada do UI/UX, garantindo a usabilidade e a experiência do usuário do produto por meio de pesquisa, prototipagem e testes de usabilidade, já os desenvolvedores Guilherme, Samuel e Yago Henrique serão responsáveis pela implementação das funcionalidades do sistema, seguindo as diretrizes e prioridades definidas pelo Product Owner, e colaborando de forma eficiente para entregar um produto de alta qualidade.
 
 ## Documentação
-Todas as documentações criadas e utilizadas para esse projeto poderão ser encontradas na pasta [/docs](./docs/) que está presente na raíz desse projeto.
+Todas as documentações criadas e utilizadas para elaboração deste projeto poderão ser encontradas na pasta [/docs](./docs/) presente na raíz.
 
 ## Tecnologias
 Nosso projeto utiliza *NestJS* para o backend e *Next.js* para o frontend. Para acessar os repositórios, clique nos links abaixo:
 - [Repositório do Backend (NestJS)](https://github.com/2luizottavioc/mmtes-eco3d-nest)
 - [Repositório do Frontend (Next.js)](https://github.com/2luizottavioc/mmtes-eco3d-next)
 
-## Development Environment
+## Ambiente de Desenvolvimento
 Para criar o ambiente de desenvolvimento deste projeto, é necessário seguir os seguintes passos:
 - Certifique-se de ter todas as seguintes tecnologias instaladas:
     - [Git](https://git-scm.com/downloads);
