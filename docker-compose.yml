@@ -3,6 +3,7 @@ services:
     image: mysql:5.7.22
     restart: unless-stopped
     environment:
+      MYSQL_DATABASE: eco-3d
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_USER: eco3d
       MYSQL_PASSWORD: eco3d

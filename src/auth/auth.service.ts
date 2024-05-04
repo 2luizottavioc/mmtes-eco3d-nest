@@ -26,22 +26,29 @@ export class AuthService {
         };
     }
 
+    async register(user: User): Promise<User> {
+        const hashedPassword = await bcrypt.hash(user.password, 10);
+        const newUser = await this.userService.create({
+            ...user,
+            password: hashedPassword,
+        });
+
+        return {
+            ...newUser,
+            password: undefined,
+        };
+    }
+
     async validateUser(email: string, password: string): Promise<User> {
         const user = await this.userService.findByEmail(email);
-
         if (user) {
             const isPasswordValid = await bcrypt.compare(password, user.password);
-
-            if (isPasswordValid) {
-                return {
-                    ...user,
-                    password: undefined,
-                };
-            }
+            if (isPasswordValid) return {
+                ...user,
+                password: undefined,
+            };
         }
-
-        throw new UnauthorizedError(
-            'Email address or password provided is incorrect.',
-        );
+        
+        throw new UnauthorizedError('Email address or password provided is incorrect.');
     }
 }

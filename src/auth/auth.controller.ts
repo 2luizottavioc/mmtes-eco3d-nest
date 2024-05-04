@@ -16,10 +16,17 @@ export class AuthController {
     constructor(private readonly authService: AuthService) { }
 
     @IsPublic()
+    @Post('auth/login')
     @UseGuards(LocalAuthGuard)
-    @Post('login')
     @HttpCode(HttpStatus.OK)
     async login(@Request() req: AuthRequest) {
         return this.authService.login(req.user);
+    }
+
+    @IsPublic()
+    @Post('auth/register')
+    @HttpCode(HttpStatus.CREATED)
+    async register(@Request() req: AuthRequest) {      
+        return this.authService.register(req.body);
     }
 }

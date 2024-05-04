@@ -39,7 +39,7 @@ Para criar o ambiente de desenvolvimento deste projeto, é necessário seguir os
     - [Postman (opcional)](https://www.postman.com/downloads/);
     - [DBeaver (opcional)](https://dbeaver.io/download/).
 - Clonagem do repositório: 
-    - Execute o código ```git clone git@github.com:2luizottavioc/mmtes-eco3d-nest.git``` em sua pasta de preferência;
+    - Execute o código ```git clone https://github.com/2luizottavioc/mmtes-eco3d-nest.git``` em sua pasta de preferência;
     - Uma pasta "mmtes-eco3d-nest" será criada, portanto, mova-se até ela com ```cd mmtes-eco3d-nest```;
     - Certifique-se de executar todos os próximos passos dessa sessão dentro da raíz do projeto.
 - Dependências e .env
