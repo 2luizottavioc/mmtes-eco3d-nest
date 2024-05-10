@@ -1,8 +1,8 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+  // This is your Prisma schema file,
+  // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+  // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+  // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
   provider = "prisma-client-js"
@@ -15,11 +15,42 @@ datasource db {
 
 model User {
   id Int @id @default(autoincrement())
-
   email    String @unique
   cpf_cnpj String @unique
   contact  String
   password String
-
   name String
+  products Product[]
+}
+
+model Product {
+  id              Int @id @default(autoincrement())
+  id_user         Int 
+  user            User @relation(fields: [id_user], references: [id])
+  name            String
+  sale_price      Float
+  stock_quantity  Int
+  description     String
+  entries         ProductEntry[]
+  sales           ProductSales[]
+}
+
+model ProductEntry {
+  id              Int @id @default(autoincrement())
+  id_product      Int
+  product         Product @relation(fields: [id_product], references: [id])
+  quantity        Int
+  cost_price      Float
+  provider        String
+  date            DateTime
+}
+
+model ProductSales {
+  id              Int @id @default(autoincrement())
+  id_product      Int
+  product         Product @relation(fields: [id_product], references: [id])
+  quantity        Int
+  sale_value      Float
+  client_name     String
+  date            DateTime
 }
