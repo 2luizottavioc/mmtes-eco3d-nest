@@ -15,8 +15,8 @@ export class UserService {
       ...createUserDto,
       password: await bcrypt.hash(createUserDto.password, 10),
     };
-
-    const createdUser = await this.prisma.user.create({ data });
+    
+    const createdUser = await this.prisma.user.create({ data })
 
     return {
       ...createdUser,
@@ -34,6 +34,10 @@ export class UserService {
 
   async findByEmail(email: string) {
     return await this.prisma.user.findUnique({ where: { email } });
+  }
+
+  async findByCpfCnpj(cpf_cnpj: string) {
+    return await this.prisma.user.findUnique({ where: { cpf_cnpj } });
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {

@@ -18,16 +18,19 @@ export class AuthService {
         const payload: UserPayload = {
             sub: user.id,
             email: user.email,
+            cpf_cnpj: user.cpf_cnpj,
+            contact: user.contact,
             name: user.name,
         };
+        
+        const token = await this.jwtService.signAsync(payload);
 
-        return {
-            access_token: this.jwtService.sign(payload),
-        };
+        return { user, token };
     }
 
     async register(user: User): Promise<User> {
         const newUser = await this.userService.create(user);
+        
         return {
             ...newUser,
             password: undefined,
