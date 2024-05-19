@@ -12,9 +12,6 @@ export class UpdateEntryDto extends PartialType(CreateEntryDto) {
     @MaxLength(100)
     provider: string;
 
-    @IsDate()
-    date: Date;
-
     @IsNumber()
     id_product: number;
 

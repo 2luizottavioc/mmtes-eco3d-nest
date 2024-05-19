@@ -20,6 +20,7 @@ export class EntryService {
       throw new NotFoundException(`Product with ID ${createEntryDto.id_product} not found`)
     }
     createEntryDto.cost_price = product.sale_price * createEntryDto.quantity;
+    createEntryDto.date = new Date();
 
     const data: Prisma.ProductEntryCreateInput = {
       quantity: createEntryDto.quantity,
@@ -50,26 +51,7 @@ export class EntryService {
 
   async update(id: number, updateEntryDto: UpdateEntryDto) {
     
-    const product = await this.prisma.product.findUnique({
-      where: { id: updateEntryDto.id_product },
-    });
-
-    if(!product){
-      throw new NotFoundException(`Product with ID ${updateEntryDto.id_product} not found`)
-    }
-    updateEntryDto.cost_price = product.sale_price * updateEntryDto.quantity;
-
-    const data: Prisma.ProductEntryCreateInput = {
-      quantity: updateEntryDto.quantity,
-      cost_price: updateEntryDto.cost_price,
-      provider: updateEntryDto.provider,
-      date: updateEntryDto.date,
-      product: {
-        connect: {
-          id: updateEntryDto.id_product
-        },
-      }
-    };
+    const { product, ...data } = updateEntryDto;
 
     const updatedEntry = await this.prisma.productEntry.update({
       where: { id },

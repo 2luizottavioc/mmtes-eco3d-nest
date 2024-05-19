@@ -19,10 +19,6 @@ export class CreateEntryDto extends Entry {
     @MaxLength(100)
     provider: string;
 
-    @IsDate()
-    @Type(() => Date)
-    date: Date;
-
     @IsNumber()
     id_product: number;
 

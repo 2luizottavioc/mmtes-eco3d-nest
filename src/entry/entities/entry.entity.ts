@@ -1,4 +1,4 @@
-import { Product } from "@prisma/client";
+import { Product } from "src/product/entities/product.entity";
 
 export class Entry {
     id?: number;
