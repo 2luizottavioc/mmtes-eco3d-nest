@@ -1,4 +1,3 @@
-import { Type } from 'class-transformer';
 import { Entry } from '../entities/entry.entity';
 import {
     IsString,
@@ -6,10 +5,16 @@ import {
     IsInt,
     Min,
     IsDate,
-    MaxLength
+    MaxLength,
+    IsDecimal,
+    IsPositive,
+    IsDateString,
+    IsISO8601
 } from 'class-validator';
 
 export class CreateEntryDto extends Entry {
+    @IsNumber()
+    id_product: number;
 
     @IsInt()
     @Min(0)
@@ -19,7 +24,6 @@ export class CreateEntryDto extends Entry {
     @MaxLength(100)
     provider: string;
 
-    @IsNumber()
-    id_product: number;
-
+    @IsDateString()
+    date: Date;
 }

@@ -3,6 +3,7 @@ import { Product } from '../entities/product.entity';
 import {
     IsInt,
     IsNumber,
+    IsPositive,
     IsString,
     MaxLength,
     Min,
@@ -20,12 +21,7 @@ export class CreateProductDto extends Product {
     @MaxLength(200)
     description: string;
 
-    @IsInt()
-    @Min(0)
-    stock_quantity: number;
-
-    @IsNumber()
-    @Min(0.01)
+    @IsNumber({ maxDecimalPlaces: 2 })
+    @IsPositive()
     sale_price: number;
-
 }

@@ -12,12 +12,7 @@ export class UpdateProductDto extends PartialType(CreateProductDto) {
     @MaxLength(200)
     description: string;
 
-    @IsInt()
-    @Min(0)
-    stock_quantity: number;
-
     @IsNumber()
     @Min(0.01)
     sale_price: number;
-
 }

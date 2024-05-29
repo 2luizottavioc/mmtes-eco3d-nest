@@ -3,7 +3,6 @@ import { CreateEntryDto } from './create-entry.dto';
 import { IsNumber, IsInt, Min, IsDate, IsString, MaxLength } from 'class-validator';
 
 export class UpdateEntryDto extends PartialType(CreateEntryDto) {
-
     @IsInt()
     @Min(0)
     quantity: number;
@@ -14,5 +13,4 @@ export class UpdateEntryDto extends PartialType(CreateEntryDto) {
 
     @IsNumber()
     id_product: number;
-
 }
