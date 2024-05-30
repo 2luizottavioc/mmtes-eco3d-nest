@@ -11,24 +11,26 @@ import { User } from 'src/user/entities/user.entity';
 export class SaleService {
   constructor(private readonly prisma: PrismaService) { }
 
-  async create(createSaleDto: CreateSaleDto, user: User): Promise<Sale> {
-
+  async create(createSaleDto: CreateSaleDto): Promise<Sale> {
     const product = await this.prisma.product.findUnique({
       where: { id: createSaleDto.id_product },
     });
 
-    if(!product){
+    if(!product) {
       throw new NotFoundException(`Product with ID ${createSaleDto.id_product} not found`)
     }
-    createSaleDto.sale_value = product.sale_price * createSaleDto.quantity;
-    createSaleDto.date = new Date();
-    createSaleDto.client_name = user.name;
+
+    const newProductStock = product.stock_quantity - createSaleDto.quantity;
+
+    if(newProductStock < 0) {
+      throw new NotFoundException(`Not enough stock for product with ID ${createSaleDto.id_product}`)
+    }
 
     const data: Prisma.ProductSalesCreateInput = {
       quantity: createSaleDto.quantity,
-      sale_value: createSaleDto.sale_value,
+      sale_value: product.sale_price * createSaleDto.quantity,
       client_name: createSaleDto.client_name,
-      date: createSaleDto.date,
+      date: new Date(createSaleDto.date).toISOString(),
       product: {
         connect: {
           id: createSaleDto.id_product
@@ -38,34 +40,121 @@ export class SaleService {
     
     const createdSale = await this.prisma.productSales.create({ data })
 
+    await this.prisma.product.update({
+      where: { id: createSaleDto.id_product },
+      data: {
+        stock_quantity: newProductStock
+      }
+    })
+
     return {
       ...createdSale
     };
   }
 
   async findAll() {
-    return await this.prisma.productSales.findMany() || [];
+    return await this.prisma.productSales.findMany({ include: { product: true } }) || [];
   }
 
   async findOne(id: number) {
-    return await this.prisma.productSales.findUnique({ where: { id } }) || {};
+    return await this.prisma.productSales.findUnique({ 
+      where: { id }, 
+      include: { product: true } 
+    }) || {};
   }
 
   async update(id: number, updateSaleDto: UpdateSaleDto) {
-    
-    const { product, ...data} = updateSaleDto;
+    const product = await this.prisma.product.findUnique({
+      where: { id: updateSaleDto.id_product },
+    });
+
+    if(!product) {
+      throw new NotFoundException(`Product with ID ${updateSaleDto.id_product} not found`)
+    }
+
+    const { ...data} = updateSaleDto;
+    const newSaleValue = product.sale_price * updateSaleDto.quantity
+    const newDate = new Date(updateSaleDto.date).toISOString();
+
+    const originalSale = await this.prisma.productSales.findUnique({
+      where: { id },
+    });
 
     const updatedSale = await this.prisma.productSales.update({
       where: { id },
-      data,
+      data: {
+        ...data,
+        sale_value: newSaleValue,
+        date: newDate
+      },
     });
+
+    const originalQuantity = originalSale.quantity;
+    const newQuantity = updatedSale.quantity;
+    const diffQuantity = newQuantity - originalQuantity;
+
+    const productChanged = originalSale.id_product !== updatedSale.id_product;
+
+    if(productChanged) {
+      const originalProduct = await this.prisma.product.findUnique({
+        where: { id: originalSale.id_product },
+      })
+
+      await this.prisma.product.update({
+        where: { id: originalProduct.id },
+        data: {
+          stock_quantity: originalProduct.stock_quantity + originalQuantity
+        }
+      })
+
+      await this.prisma.product.update({
+        where: { id: updatedSale.id_product },
+        data: {
+          stock_quantity: product.stock_quantity - newQuantity
+        }
+      })
+
+      return {
+        ...updatedSale
+      }
+    }
+
+    if(diffQuantity) {
+      await this.prisma.product.update({
+        where: { id: product.id },
+        data: {
+          stock_quantity: product.stock_quantity - diffQuantity
+        }
+      })
+    }
 
     return {
       ...updatedSale
     };
   }
 
-  remove(id: number) {
-    return this.prisma.productSales.delete({ where: { id } });
+  async remove(id: number) {
+    const sale = await this.prisma.productSales.findUnique({
+      where: { id },
+    });
+
+    if (!sale) {
+      throw new NotFoundException(`Sale with ID ${id} not found`)
+    }
+
+    const product = await this.prisma.product.findUnique({
+      where: { id: sale.id_product },
+    });
+
+    const deletedSale = await this.prisma.productSales.delete({ where: { id } });
+
+    await this.prisma.product.update({
+      where: { id: product.id },
+      data: {
+        stock_quantity: product.stock_quantity + sale.quantity
+      }
+    })
+
+    return deletedSale
   }
 }

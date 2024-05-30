@@ -1,8 +1,6 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateEntryDto } from './create-entry.dto';
 import { IsNumber, IsInt, Min, IsDate, IsString, MaxLength } from 'class-validator';
 
-export class UpdateEntryDto extends PartialType(CreateEntryDto) {
+export class UpdateEntryDto {
     @IsInt()
     @Min(0)
     quantity: number;

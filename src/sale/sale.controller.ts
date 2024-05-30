@@ -11,7 +11,7 @@ export class SaleController {
 
   @Post()
   create(@Body() createSaleDto: CreateSaleDto, @CurrentUser() user: User) {
-    return this.saleService.create(createSaleDto, user);
+    return this.saleService.create(createSaleDto);
   }
 
   @Get()

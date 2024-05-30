@@ -57,15 +57,15 @@ export class EntryService {
   }
 
   async update(id: number, updateEntryDto: UpdateEntryDto) {
-    const productData = await this.prisma.product.findUnique({
+    const product = await this.prisma.product.findUnique({
       where: { id: updateEntryDto.id_product },
     });
 
-    if(!productData) {
+    if(!product) {
       throw new NotFoundException(`Product with ID ${updateEntryDto.id_product} not found`)
     }
 
-    const { product, ...data } = updateEntryDto;
+    const { ...data } = updateEntryDto;
 
     const originalEntry = await this.prisma.productEntry.findUnique({
       where: { id },
@@ -76,9 +76,9 @@ export class EntryService {
       data,
     });
 
-    const originalQuantity = originalEntry.quantity;
-    const newQuantity = updatedEntry.quantity;
-    const diffQuantity = newQuantity - originalQuantity;
+    const originalQuantity = originalEntry.quantity;  
+    const newQuantity = updatedEntry.quantity;  
+    const diffQuantity = newQuantity - originalQuantity;  
     
     const productChanged = originalEntry.id_product !== updatedEntry.id_product;
     if(productChanged) {
@@ -94,9 +94,9 @@ export class EntryService {
       })
 
       await this.prisma.product.update({
-        where: { id: productData.id },
+        where: { id: product.id },
         data: {
-          stock_quantity: productData.stock_quantity + newQuantity
+          stock_quantity: product.stock_quantity + newQuantity
         }
       })
 
@@ -107,9 +107,9 @@ export class EntryService {
     
     if(diffQuantity) {
       await this.prisma.product.update({
-        where: { id: productData.id },
+        where: { id: product.id },
         data: {
-          stock_quantity: productData.stock_quantity + diffQuantity
+          stock_quantity: product.stock_quantity + diffQuantity
         }
       })
     }
@@ -132,6 +132,8 @@ export class EntryService {
       where: { id: entry.id_product },
     });
 
+    const deletedEntry = await this.prisma.productEntry.delete({ where: { id } });
+
     await this.prisma.product.update({
       where: { id: product.id },
       data: {
@@ -139,6 +141,6 @@ export class EntryService {
       }
     })
 
-    return this.prisma.productEntry.delete({ where: { id } });
+    return deletedEntry
   }
 }
