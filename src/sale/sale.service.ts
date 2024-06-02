@@ -93,6 +93,10 @@ export class SaleService {
     const newQuantity = updatedSale.quantity;
     const diffQuantity = newQuantity - originalQuantity;
 
+    if(product.stock_quantity < diffQuantity){
+      throw new Error('Not enough stock available for the update');
+    }
+
     const productChanged = originalSale.id_product !== updatedSale.id_product;
 
     if(productChanged) {
