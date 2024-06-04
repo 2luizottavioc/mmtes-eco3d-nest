@@ -4,6 +4,7 @@ import { UpdateEntryDto } from './dto/update-entry.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Entry } from './entities/entry.entity';
 import { Prisma } from '@prisma/client';
+import { User } from 'src/user/entities/user.entity';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -45,20 +46,23 @@ export class EntryService {
     };
   }
 
-  async findAll() {
-    return await this.prisma.productEntry.findMany({ include: { product: true } }) || [];
+  async findAll(user: User) {
+    return await this.prisma.productEntry.findMany({
+      where: { product: { id_user: user.id } },
+      include: { product: true }
+    }) || [];
   }
 
-  async findOne(id: number) {
+  async findOne(id: number, user: User) {
     return await this.prisma.productEntry.findUnique({ 
-      where: { id },
+      where: { id, product: { id_user: user.id } },
       include: { product: true }
     }) || {};
   }
 
-  async update(id: number, updateEntryDto: UpdateEntryDto) {
+  async update(id: number, updateEntryDto: UpdateEntryDto, user: User) {
     const product = await this.prisma.product.findUnique({
-      where: { id: updateEntryDto.id_product },
+      where: { id: updateEntryDto.id_product, id_user: user.id },
     });
 
     if(!product) {
@@ -119,9 +123,9 @@ export class EntryService {
     };
   }
 
-  async remove(id: number) {
+  async remove(id: number, user: User) {
     const entry = await this.prisma.productEntry.findUnique({
-      where: { id },
+      where: { id, product: { id_user: user.id } },
     })
 
     if(!entry) {

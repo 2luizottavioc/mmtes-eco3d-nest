@@ -52,20 +52,23 @@ export class SaleService {
     };
   }
 
-  async findAll() {
-    return await this.prisma.productSales.findMany({ include: { product: true } }) || [];
+  async findAll(user: User) {
+    return await this.prisma.productSales.findMany({
+      where: { product: { id_user: user.id } },
+      include: { product: true }
+    }) || [];
   }
 
-  async findOne(id: number) {
+  async findOne(id: number, user: User) {
     return await this.prisma.productSales.findUnique({ 
-      where: { id }, 
+      where: { id, product: { id_user: user.id } }, 
       include: { product: true } 
     }) || {};
   }
 
-  async update(id: number, updateSaleDto: UpdateSaleDto) {
+  async update(id: number, updateSaleDto: UpdateSaleDto, user: User) {
     const product = await this.prisma.product.findUnique({
-      where: { id: updateSaleDto.id_product },
+      where: { id: updateSaleDto.id_product, id_user: user.id },
     });
 
     if(!product) {
@@ -137,9 +140,9 @@ export class SaleService {
     };
   }
 
-  async remove(id: number) {
+  async remove(id: number, user: User) {
     const sale = await this.prisma.productSales.findUnique({
-      where: { id },
+      where: { id, product: { id_user: user.id } },
     });
 
     if (!sale) {
