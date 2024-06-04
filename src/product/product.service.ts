@@ -32,19 +32,19 @@ export class ProductService {
     };
   }
 
-  async findAll() {
-    return await this.prisma.product.findMany() || [];
+  async findAll(user: User) {
+    return await this.prisma.product.findMany({ where: { id_user: user.id } }) || [];
   }
 
-  async findOne(id: number) {
-    return await this.prisma.product.findUnique({ where: { id } }) || {};
+  async findOne(id: number, user: User) {
+    return await this.prisma.product.findUnique({ where: { id, id_user: user.id } }) || {};
   }
 
-  async update(id: number, updateProductDto: UpdateProductDto) {
+  async update(id: number, updateProductDto: UpdateProductDto, currentUser: User) {
     const { user, ...data } = updateProductDto;
 
     const updatedProduct = await this.prisma.product.update({
-      where: { id },
+      where: { id, id_user: currentUser.id },
       data,
     });
 
@@ -53,10 +53,10 @@ export class ProductService {
     };
   }
 
-  async remove(id: number) {
+  async remove(id: number, user: User) {
     const deletedEntry = await this.prisma.productEntry.deleteMany({ where: { id_product: id } });
     const deletedSales = await this.prisma.productSales.deleteMany({ where: { id_product: id } });
-    const deletedProduct = await this.prisma.product.delete({ where: { id } });
+    const deletedProduct = await this.prisma.product.delete({ where: { id, id_user: user.id } });
     
     return {
       deleted_product: deletedProduct,

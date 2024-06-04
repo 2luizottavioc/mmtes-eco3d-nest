@@ -5,7 +5,7 @@ import { IsInt, IsNumber, IsString, MaxLength, Min, MinLength } from 'class-vali
 export class UpdateProductDto extends PartialType(CreateProductDto) {
     @IsString()
     @MinLength(4)
-    @MaxLength(20)
+    @MaxLength(40)
     name: string;
 
     @IsString()

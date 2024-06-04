@@ -1,4 +1,4 @@
-# Modelos, métodos e técnicas da engenharia de software - Projeto A3 (Eco 3D)
+# Projeto A3 - Eco 3D
 
 Projeto A3 da UNA - SI/ADS. Nosso trabalho, intitulado Eco 3D, visa desenvolver um sistema de gerenciamento de estoque para materiais de impressão 3D recicláveis. 
 

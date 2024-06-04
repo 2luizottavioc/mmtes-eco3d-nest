@@ -1,4 +1,4 @@
-import { IsNumber, IsInt, Min, IsDate, IsString, MaxLength } from 'class-validator';
+import { IsNumber, IsInt, Min, IsDate, IsString, MaxLength, IsPositive, IsDateString } from 'class-validator';
 
 export class UpdateEntryDto {
     @IsInt()
@@ -11,4 +11,11 @@ export class UpdateEntryDto {
 
     @IsNumber()
     id_product: number;
+
+    @IsDateString()
+    date: Date;
+
+    @IsNumber({ maxDecimalPlaces: 2 })
+    @IsPositive()
+    cost_price: number;
 }

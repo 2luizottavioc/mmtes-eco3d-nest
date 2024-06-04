@@ -25,11 +25,19 @@ export class UserService {
   }
 
   async findAll() {
-    return await this.prisma.user.findMany() || [];
+    const users = await this.prisma.user.findMany();
+    return users.map(user => {
+      const { password, ...userWithoutPassword } = user;
+      return userWithoutPassword;
+    }) || [];
   }
 
   async findOne(id: number) {
-    return await this.prisma.user.findUnique({ where: { id } }) || {};
+    const user = await this.prisma.user.findUnique({ where: { id } });
+    return {
+      ...user,
+      password: undefined,
+    };
   }
 
   async findByEmail(email: string) {

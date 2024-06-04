@@ -6,6 +6,7 @@ import {
     IsDateString,
     IsString,
     MaxLength,
+    IsPositive,
 } from 'class-validator';
 
 export class CreateSaleDto extends Sale {
@@ -22,4 +23,8 @@ export class CreateSaleDto extends Sale {
 
     @IsDateString()
     date: Date;
+
+    @IsNumber({ maxDecimalPlaces: 2 })
+    @IsPositive()
+    sale_value: number;
 }

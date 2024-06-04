@@ -26,4 +26,8 @@ export class CreateEntryDto extends Entry {
 
     @IsDateString()
     date: Date;
+
+    @IsNumber({ maxDecimalPlaces: 2 })
+    @IsPositive()
+    cost_price: number;
 }

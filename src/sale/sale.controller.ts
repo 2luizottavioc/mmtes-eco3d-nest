@@ -15,22 +15,22 @@ export class SaleController {
   }
 
   @Get()
-  findAll() {
-    return this.saleService.findAll();
+  findAll(@CurrentUser() user: User) {
+    return this.saleService.findAll(user);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.saleService.findOne(id);
+  findOne(@Param('id') id: number, @CurrentUser() user: User) {
+    return this.saleService.findOne(id, user);
   }
 
   @Put(':id')
-  update(@Param('id') id: number, @Body() updateSaleDto: UpdateSaleDto) {
-    return this.saleService.update(id, updateSaleDto);
+  update(@Param('id') id: number, @Body() updateSaleDto: UpdateSaleDto, @CurrentUser() user: User) {
+    return this.saleService.update(id, updateSaleDto, user);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.saleService.remove(id);
+  remove(@Param('id') id: number, @CurrentUser() user: User) {
+    return this.saleService.remove(id, user);
   }
 }

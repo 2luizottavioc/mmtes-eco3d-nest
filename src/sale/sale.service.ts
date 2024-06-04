@@ -28,7 +28,7 @@ export class SaleService {
 
     const data: Prisma.ProductSalesCreateInput = {
       quantity: createSaleDto.quantity,
-      sale_value: product.sale_price * createSaleDto.quantity,
+      sale_value: createSaleDto.sale_value,
       client_name: createSaleDto.client_name,
       date: new Date(createSaleDto.date).toISOString(),
       product: {
@@ -52,20 +52,23 @@ export class SaleService {
     };
   }
 
-  async findAll() {
-    return await this.prisma.productSales.findMany({ include: { product: true } }) || [];
+  async findAll(user: User) {
+    return await this.prisma.productSales.findMany({
+      where: { product: { id_user: user.id } },
+      include: { product: true }
+    }) || [];
   }
 
-  async findOne(id: number) {
+  async findOne(id: number, user: User) {
     return await this.prisma.productSales.findUnique({ 
-      where: { id }, 
+      where: { id, product: { id_user: user.id } }, 
       include: { product: true } 
     }) || {};
   }
 
-  async update(id: number, updateSaleDto: UpdateSaleDto) {
+  async update(id: number, updateSaleDto: UpdateSaleDto, user: User) {
     const product = await this.prisma.product.findUnique({
-      where: { id: updateSaleDto.id_product },
+      where: { id: updateSaleDto.id_product, id_user: user.id },
     });
 
     if(!product) {
@@ -73,7 +76,6 @@ export class SaleService {
     }
 
     const { ...data} = updateSaleDto;
-    const newSaleValue = product.sale_price * updateSaleDto.quantity
     const newDate = new Date(updateSaleDto.date).toISOString();
 
     const originalSale = await this.prisma.productSales.findUnique({
@@ -84,7 +86,6 @@ export class SaleService {
       where: { id },
       data: {
         ...data,
-        sale_value: newSaleValue,
         date: newDate
       },
     });
@@ -92,6 +93,10 @@ export class SaleService {
     const originalQuantity = originalSale.quantity;
     const newQuantity = updatedSale.quantity;
     const diffQuantity = newQuantity - originalQuantity;
+
+    if(product.stock_quantity < diffQuantity){
+      throw new Error('Not enough stock available for the update');
+    }
 
     const productChanged = originalSale.id_product !== updatedSale.id_product;
 
@@ -133,9 +138,9 @@ export class SaleService {
     };
   }
 
-  async remove(id: number) {
+  async remove(id: number, user: User) {
     const sale = await this.prisma.productSales.findUnique({
-      where: { id },
+      where: { id, product: { id_user: user.id } },
     });
 
     if (!sale) {

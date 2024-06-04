@@ -1,4 +1,4 @@
-import { IsNumber, IsInt, Min, IsString, MaxLength, IsDateString, } from 'class-validator';
+import { IsNumber, IsInt, Min, IsString, MaxLength, IsDateString, IsPositive, } from 'class-validator';
 
 export class UpdateSaleDto {
     @IsNumber()
@@ -14,4 +14,8 @@ export class UpdateSaleDto {
 
     @IsDateString()
     date: Date;
+
+    @IsNumber({ maxDecimalPlaces: 2 })
+    @IsPositive()
+    sale_value: number;
 }
