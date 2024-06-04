@@ -28,7 +28,7 @@ export class SaleService {
 
     const data: Prisma.ProductSalesCreateInput = {
       quantity: createSaleDto.quantity,
-      sale_value: product.sale_price * createSaleDto.quantity,
+      sale_value: createSaleDto.sale_value,
       client_name: createSaleDto.client_name,
       date: new Date(createSaleDto.date).toISOString(),
       product: {
@@ -76,7 +76,6 @@ export class SaleService {
     }
 
     const { ...data} = updateSaleDto;
-    const newSaleValue = product.sale_price * updateSaleDto.quantity
     const newDate = new Date(updateSaleDto.date).toISOString();
 
     const originalSale = await this.prisma.productSales.findUnique({
@@ -87,7 +86,6 @@ export class SaleService {
       where: { id },
       data: {
         ...data,
-        sale_value: newSaleValue,
         date: newDate
       },
     });

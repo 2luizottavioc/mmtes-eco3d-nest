@@ -22,7 +22,7 @@ export class EntryService {
 
     const data: Prisma.ProductEntryCreateInput = {
       quantity: createEntryDto.quantity,
-      cost_price: product.sale_price * createEntryDto.quantity,
+      cost_price: createEntryDto.cost_price,
       provider: createEntryDto.provider,
       date: new Date(createEntryDto.date).toISOString(),
       product: {

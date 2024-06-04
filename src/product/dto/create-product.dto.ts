@@ -14,7 +14,7 @@ export class CreateProductDto extends Product {
 
     @IsString()
     @MinLength(4)
-    @MaxLength(20)
+    @MaxLength(40)
     name: string;
 
     @IsString()
